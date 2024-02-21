@@ -9,6 +9,9 @@ from typing import Optional
 from typing import Set
 
 """
+    https://github.com/peniwize/longest-common-subsequence.git
+    https://leetcode.com/problems/longest-common-subsequence/
+    
     Given two strings text1 and text2, return the length of their longest 
     common subsequence. If there is no common subsequence, return 0.
 
@@ -461,6 +464,16 @@ def test4(solution):
     print("{}:{}({:.6f} sec) result = {}".format(inspect.currentframe().f_code.co_name, type(solution), endTime - startTime, result))
     assert(expected == result)
 
+def test5(solution):
+    text1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    text2 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    expected = 210
+    startTime = time.time()
+    result = solution.longestCommonSubsequence(text1, text2)
+    endTime = time.time()
+    print("{}:{}({:.6f} sec) result = {}".format(inspect.currentframe().f_code.co_name, type(solution), endTime - startTime, result))
+    assert(expected == result)
+
 def test100(solution):
     text1 = ""
     text2 = ""
@@ -481,7 +494,7 @@ def test101(solution):
     print("{}:{}({:.6f} sec) result = {}".format(inspect.currentframe().f_code.co_name, type(solution), endTime - startTime, result))
     assert(expected == result)
 
-def test101(solution):
+def test102(solution):
     text1 = "abcbdab"
     text2 = "asdjcefhiuhi"
     expected = 2
@@ -516,6 +529,12 @@ if "__main__" == __name__:
     test4(Solution4_TopDownDP())
     test4(Solution5_DP())
 
+    #test5(Solution1_BruteForce())
+    #test5(Solution2_BruteForce())
+    #test5(Solution3_BruteForce())
+    test5(Solution4_TopDownDP())
+    test5(Solution5_DP())
+
     test100(Solution1_BruteForce())
     test100(Solution2_BruteForce())
     test100(Solution3_BruteForce())
@@ -527,5 +546,11 @@ if "__main__" == __name__:
     test101(Solution3_BruteForce())
     test101(Solution4_TopDownDP())
     test101(Solution5_DP())
+
+    test102(Solution1_BruteForce())
+    test102(Solution2_BruteForce())
+    test102(Solution3_BruteForce())
+    test102(Solution4_TopDownDP())
+    test102(Solution5_DP())
 
 # End of "solution.py".
