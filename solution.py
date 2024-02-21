@@ -31,6 +31,15 @@ from typing import Set
     This solution tests the hypothesis that the solution is to find the 
     first largest combination of text1 and text2 that matches and return
     the length of that combination.
+
+    Time = O(n*2**m)
+           m: len(text2)
+           n: len(text1)
+           * note: text1 is the shorter of the two.
+
+    Space = O(2**n+n) => O(2**n)
+            2**n: cache storing all combinations for (n choose k).
+            n: call stack depth when calculating n choose k combinations.
 """
 class Solution1_BruteForce:
     def genCombos(self, combos: set, text: str, k: int, I: int, combo: List):
@@ -153,6 +162,36 @@ class Solution1_BruteForce:
             CC  <-- *match* (at end of sequence so cannot move ahead)
 
     See previous solutions for context.
+
+    ChatGPT explains the worst case complexity analysis very well:
+
+    "The exact worst-case time complexity is difficult to express in a simple 
+     closed form due to the nature of the recursive calls, but it's evident 
+     that the growth rate is exponential. To give a more precise figure, 
+     consider the number of possible subsequences of text1 combined with the 
+     number of possible subsequences of text2. Since there are 2**n possible 
+     subsequences for a string of length n (each element can either be 
+     included or excluded), the total number of operations involves examining 
+     all pairs of subsequences from the two strings, leading to 2**n * 2**m
+     = 2**[n+m] operations in the worst case."
+
+    "Thus, the worst-case time complexity is O(2**[n+m]), which occurs when 
+     there are no common elements between text1 and text2, as this forces the 
+     exploration of all possible subsequence pairs without any early 
+     termination due to matching elements."
+
+    "The space complexity is primarily determined by the depth of the 
+     recursive call stack and the space needed to store the intermediate 
+     string slices. In the worst case, the maximum depth of the recursive 
+     call stack is n+m, as the function could be called recursively reducing 
+     one character at a time from either text1 or text2 until both strings 
+     are empty."
+    
+    Time = O(2**[m+n])
+           m = len(text1)
+           n = len(text2)
+
+    Space = O(m+n)  [maximum call stack depth]
 """
 class Solution2_BruteForce:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
@@ -180,6 +219,12 @@ class Solution2_BruteForce:
     rather than last characters.  This proves it doesn't matter whether 
     combinations are produced from right to left or left to right.
     See previous solutions for context.
+
+    Time = O(2**[m+n])
+           m = len(text1)
+           n = len(text2)
+
+    Space = O(m+n)  [maximum call stack depth]
 """
 class Solution3_BruteForce:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
@@ -227,6 +272,20 @@ class Solution3_BruteForce:
             CC  <-- *match* (at end of sequence so cannot move ahead)
 
     See previous solutions for context.
+
+    Time = O(m*n)
+           m = len(text1)
+           n = len(text2)
+           Each pair of elements between text1 and text2 is evaluated only 
+           once, because the results are cached.  In the worst case, when
+           there are no common elements between the sequences, all characters
+           in each sequence will be evaluated.
+
+    Space = O(min(m, n) + m*n) = O(m*n)
+            m = len(text1)
+            n = len(text2)
+            min(m, n) = max call stack depth
+            m*n = max cache size
 """
 class Solution4_TopDownDP:
     def longestCommonSubsequence(self, 
@@ -342,12 +401,14 @@ class Solution4_TopDownDP:
     See previous solutions for context.
 
     Time = O((m+1) * (n+1)) => O(m*n)
-           m = len(seq1)
-           n = len(seq2)
-
+           m = len(text1)
+           n = len(text2)
+           Each pair of elements between text1 and text2 is evaluated.
+           
     Space = O((m+1) * (n+1)) => O(m*n)
             m = len(seq1)
             n = len(seq2)
+            m*n = max cache size
 """
 class Solution5_DP:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
